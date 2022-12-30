@@ -14,15 +14,15 @@
 
                         <v-form>
                           <v-text-field
+                            v-model= "sign_in_email"
                             label="Email"
-                            name="Email"
                             :rules="emailRules"
                             type="text"
                             color="green darken-3"
                           />
 
                           <v-text-field
-                            id="password"
+                            v-model= "sign_in_password"
                             :rules="[rules.required, rules.min]"
                             label="Password"
                             name="password"
@@ -32,7 +32,7 @@
                         </v-form>
                       </v-card-text>
                       <div class="text-center mt-3">
-                        <button class="button">Sign In</button>
+                        <button class="button" @click="sign_in">Sign In</button>
                       </div>
                     </v-col>
                     <v-col cols="12" md="4" class="green darken-3">
@@ -75,30 +75,32 @@
                         </h1>
                         <v-form>
                           <v-text-field
+                            v-model= "first_name"
                             label="First Name"
-                            name="FirstName"
+                            :rules= "fisrtNameRules"
                             type="text"
                             color="green darken-3"
                           />
 
                           <v-text-field
+                            v-model= "last_name"
                             label="Last Name"
-                            name="Last Name"
                             type="text"
+                            :rules= "lastNameRules"
                             color="green darken-3"
                           />
                           <v-text-field
+                            v-model= "sign_up_email"
                             label="Email"
-                            name="Email"
                             :rules="emailRules"
                             type="text"
                             color="green darken-3"
                           />
 
                           <v-text-field
-                            id="password"
+                            v-model= "sign_up_password"
+                            :rules="[rules.required, rules.min]"
                             label="Password"
-                            name="password"
                             type="password"
                             color="green darken-3"
                           />
@@ -120,11 +122,12 @@
 </template>
 
 <script>
+import axios from "axios"
+
 export default {
   data: () => ({
     step: 1,
     passwordRules: [(v) => !!v || "Password is required"],
-    email: "",
     emailRules: [
       (v) => !!v || "E-mail is required",
       (v) => /.+@.+\..+/.test(v) || "E-mail must be valid",
@@ -133,7 +136,51 @@ export default {
     rules: {
       required: (value) => !!value || "Password Required.",
     },
+
+    fisrtNameRules: [
+        v => !!v || 'First Name is required'
+      ],
+
+    lastNameRules: [
+        v => !!v || 'Last Name is required'
+      ],
+
+      sign_in_email: "",
+      sign_in_password: "",
+      first_name: "",
+      last_name: "",
+      sign_up_email: "",
+      sign_up_password: ""
   }),
+
+  methods: {
+    sign_in() {
+      axios
+        .request({
+          url: `https://innotechfoodie.ml/api/client-login`,
+          headers: {
+            "x-api-key": `RevyoqeHMCwaqRcUfmDC`,
+          },
+          method: `POST`,
+          data: {
+            email: this.$refs[`email`][`value`],
+            password: this.$refs[`password`][`value`],
+          },
+        })
+        .then((response) => {
+          /* on success set the cookie value to the token received from the API */
+          cookies.set(`client_id`, response[`data`][`client_id`]);
+          cookies.set(`customer_token`, response[`data`][`token`]) ;
+          /* leave the user to the menu page */
+          this.$router.push(`/menu`);
+        })
+        .catch((error) => {
+          error
+          /* on failure show a message */
+          alert(`Sorry, ana error have occured. Try again.`);
+        });
+    }
+  },
 };
 </script>
 
