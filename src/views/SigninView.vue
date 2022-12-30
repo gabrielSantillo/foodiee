@@ -17,7 +17,6 @@
                             label="Email"
                             name="Email"
                             :rules="emailRules"
-                            prepend-icon="email"
                             type="text"
                             color="green darken-3"
                           />
@@ -27,7 +26,6 @@
                             :rules="[rules.required, rules.min]"
                             label="Password"
                             name="password"
-                            prepend-icon="lock"
                             type="password"
                             color="green darken-3"
                           />
@@ -79,7 +77,6 @@
                           <v-text-field
                             label="First Name"
                             name="FirstName"
-                            prepend-icon="person"
                             type="text"
                             color="green darken-3"
                           />
@@ -87,7 +84,6 @@
                           <v-text-field
                             label="Last Name"
                             name="Last Name"
-                            prepend-icon="person"
                             type="text"
                             color="green darken-3"
                           />
@@ -95,7 +91,6 @@
                             label="Email"
                             name="Email"
                             :rules="emailRules"
-                            prepend-icon="email"
                             type="text"
                             color="green darken-3"
                           />
@@ -104,7 +99,6 @@
                             id="password"
                             label="Password"
                             name="password"
-                            prepend-icon="lock"
                             type="password"
                             color="green darken-3"
                           />
