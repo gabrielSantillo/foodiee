@@ -123,6 +123,7 @@
 
 <script>
 import axios from "axios"
+import cookies from "vue-cookies"
 
 export default {
   data: () => ({
@@ -157,22 +158,17 @@ export default {
     sign_in() {
       axios
         .request({
-          url: `https://innotechfoodie.ml/api/client-login`,
-          headers: {
-            "x-api-key": `RevyoqeHMCwaqRcUfmDC`,
-          },
+          url: `http://127.0.0.1:5000/api/client-login`,
           method: `POST`,
           data: {
-            email: this.$refs[`email`][`value`],
-            password: this.$refs[`password`][`value`],
+            email: this.sign_in_email,
+            password: this.sign_in_password,
           },
         })
         .then((response) => {
           /* on success set the cookie value to the token received from the API */
           cookies.set(`client_id`, response[`data`][`client_id`]);
-          cookies.set(`customer_token`, response[`data`][`token`]) ;
-          /* leave the user to the menu page */
-          this.$router.push(`/menu`);
+          cookies.set(`client_token`, response[`data`][`token`]) ;
         })
         .catch((error) => {
           error
