@@ -1,4 +1,4 @@
-# foodieee
+# foodiee
 
 ## Project setup
 ```
