@@ -11,7 +11,7 @@
           dismissible
           transition="fade-transition"
         >
-          All inputs must be filled in.
+          {{message}}
         </v-alert>
       </div>
 
@@ -195,7 +195,8 @@ export default {
   methods: {
     sign_in() {
       if (this.sign_in_email === "" || this.sign_in_password === "") {
-        return (this.alert = true);
+        this.message = "All inputs must be filled in."
+        return this.alert = true;
       }
       axios
         .request({
@@ -210,11 +211,17 @@ export default {
           /* on success set the cookie value to the token received from the API */
           cookies.set(`client_id`, response[`data`][`client_id`]);
           cookies.set(`client_token`, response[`data`][`token`]);
+
+          this.$router.push("/home")
         })
         .catch((error) => {
-          error;
-          /* on failure show a message */
-          this.alert_sign_in = true;
+          if (error["message"] !== "") {
+            this.message = "Sorry, an error has occurred. Please, try again.";
+            this.alert_sign_up = true;
+          } else {
+            this.message = error['response']['data']
+            this.alert_sign_up = true;
+          }
         });
     },
 
@@ -242,6 +249,8 @@ export default {
           /* on success set the cookie value to the token received from the API */
           cookies.set(`client_id`, response[`data`][`client_id`]);
           cookies.set(`client_token`, response[`data`][`token`]);
+
+          this.$router.push("/home")
         })
         .catch((error) => {
           if (error["message"] === "Network Error") {
