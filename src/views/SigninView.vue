@@ -3,7 +3,7 @@
     <v-main>
       <div class="alert">
         <v-alert v-if="alert" outlined type="warning" prominent border="left" dismissible transition="fade-transition">
-          Email and password must be filled in.
+          All inputs must be filled in.
         </v-alert>
       </div>
 
@@ -115,7 +115,7 @@
                         </v-form>
                       </v-card-text>
                       <div class="text-center mt-n5">
-                        <button class="button">Sign Up</button>
+                        <button class="button" @click="sign_up">Sign Up</button>
                       </div>
                     </v-col>
                   </v-row>
@@ -172,6 +172,33 @@ export default {
           data: {
             email: this.sign_in_email,
             password: this.sign_in_password,
+          },
+        })
+        .then((response) => {
+          /* on success set the cookie value to the token received from the API */
+          cookies.set(`client_id`, response[`data`][`client_id`]);
+          cookies.set(`client_token`, response[`data`][`token`]);
+        })
+        .catch((error) => {
+          error;
+          /* on failure show a message */
+          this.alert_sign_in = true
+        });
+    },
+
+    sign_up() {
+      if (this.sign_up_email === "" || this.sign_up_password === "" || this.first_name === "" || this.last_name === "") {
+        return this.alert = true
+      }
+      axios
+        .request({
+          url: `http://127.0.0.1:5000/api/client`,
+          method: `POST`,
+          data: {
+            email: this.sign_up_email,
+            first_name: this.first_name,
+            last_name: this.last_name,
+            password: this.sign_up_password,
           },
         })
         .then((response) => {
