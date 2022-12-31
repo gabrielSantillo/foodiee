@@ -65,7 +65,7 @@
 
                           <v-text-field
                             v-model="sign_in_password"
-                            :rules="[rules.required, rules.min]"
+                            :rules= "passwordRules"
                             label="Password"
                             name="password"
                             type="password"
@@ -137,7 +137,7 @@
 
                           <v-text-field
                             v-model="sign_up_password"
-                            :rules="[rules.required, rules.min]"
+                            :rules= "passwordRules"
                             label="Password"
                             type="password"
                             color="green darken-3"
@@ -175,9 +175,6 @@ export default {
       (v) => /.+@.+\..+/.test(v) || "E-mail must be valid",
     ],
     show1: false,
-    rules: {
-      required: (value) => !!value || "Password Required.",
-    },
 
     fisrtNameRules: [(v) => !!v || "First Name is required"],
 
