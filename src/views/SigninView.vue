@@ -2,14 +2,44 @@
   <v-app id="inspire">
     <v-main>
       <div class="alert">
-        <v-alert v-if="alert" outlined type="warning" prominent border="left" dismissible transition="fade-transition">
+        <v-alert
+          v-if="alert"
+          outlined
+          type="warning"
+          prominent
+          border="left"
+          dismissible
+          transition="fade-transition"
+        >
           All inputs must be filled in.
         </v-alert>
       </div>
 
       <div class="alert">
-        <v-alert v-if="alert_sign_in" outlined type="error" prominent border="left" dismissible transition="fade-transition">
+        <v-alert
+          v-if="alert_sign_in"
+          outlined
+          type="error"
+          prominent
+          border="left"
+          dismissible
+          transition="fade-transition"
+        >
           Email and/or password are wrong.
+        </v-alert>
+      </div>
+
+      <div class="alert">
+        <v-alert
+          v-if="alert_sign_up"
+          outlined
+          type="error"
+          prominent
+          border="left"
+          dismissible
+          transition="fade-transition"
+        >
+          {{ message }}
         </v-alert>
       </div>
 
@@ -137,6 +167,7 @@ export default {
   data: () => ({
     alert: false,
     alert_sign_in: false,
+    alert_sign_up: false,
     step: 1,
     passwordRules: [(v) => !!v || "Password is required"],
     emailRules: [
@@ -158,12 +189,13 @@ export default {
     last_name: "",
     sign_up_email: "",
     sign_up_password: "",
+    message: "",
   }),
 
   methods: {
     sign_in() {
       if (this.sign_in_email === "" || this.sign_in_password === "") {
-        return this.alert = true
+        return (this.alert = true);
       }
       axios
         .request({
@@ -182,13 +214,18 @@ export default {
         .catch((error) => {
           error;
           /* on failure show a message */
-          this.alert_sign_in = true
+          this.alert_sign_in = true;
         });
     },
 
     sign_up() {
-      if (this.sign_up_email === "" || this.sign_up_password === "" || this.first_name === "" || this.last_name === "") {
-        return this.alert = true
+      if (
+        this.sign_up_email === "" ||
+        this.sign_up_password === "" ||
+        this.first_name === "" ||
+        this.last_name === ""
+      ) {
+        return (this.alert = true);
       }
       axios
         .request({
@@ -207,9 +244,16 @@ export default {
           cookies.set(`client_token`, response[`data`][`token`]);
         })
         .catch((error) => {
-          error;
-          /* on failure show a message */
-          this.alert_sign_in = true
+          if (error["message"] === "Network Error") {
+            this.message = "Sorry, an error has occurred. Please, try again.";
+            this.alert_sign_up = true;
+          } else {
+            let error_message = error["response"]["data"];
+            if (error_message.startsWith("Duplicate entry")) {
+              this.message = "This email is already being used.";
+              this.alert_sign_up = true;
+            }
+          }
         });
     },
   },
