@@ -15,34 +15,6 @@
         </v-alert>
       </div>
 
-      <div class="alert">
-        <v-alert
-          v-if="alert_sign_in"
-          outlined
-          type="error"
-          prominent
-          border="left"
-          dismissible
-          transition="fade-transition"
-        >
-          Email and/or password are wrong.
-        </v-alert>
-      </div>
-
-      <div class="alert">
-        <v-alert
-          v-if="alert_sign_up"
-          outlined
-          type="error"
-          prominent
-          border="left"
-          dismissible
-          transition="fade-transition"
-        >
-          {{ message }}
-        </v-alert>
-      </div>
-
       <v-container class="fill-height" fluid>
         <v-row align="center" justify="center">
           <v-col cols="12" sm="8" md="8">
@@ -166,8 +138,6 @@ import cookies from "vue-cookies";
 export default {
   data: () => ({
     alert: false,
-    alert_sign_in: false,
-    alert_sign_up: false,
     step: 1,
     passwordRules: [(v) => !!v || "Password is required"],
     emailRules: [
@@ -212,12 +182,12 @@ export default {
           this.$router.push("/home")
         })
         .catch((error) => {
-          if (error["message"] !== "") {
-            this.message = "Sorry, an error has occurred. Please, try again.";
-            this.alert_sign_up = true;
+          if (error["message"] === "Request failed with status code 400") {
+            this.message = "Wrong email and/or password.";
+            this.alert = true;
           } else {
-            this.message = error['response']['data']
-            this.alert_sign_up = true;
+            this.message = "Sorry, an error has occurred. Please, try again."
+            this.alert = true;
           }
         });
     },
@@ -252,12 +222,12 @@ export default {
         .catch((error) => {
           if (error["message"] === "Network Error") {
             this.message = "Sorry, an error has occurred. Please, try again.";
-            this.alert_sign_up = true;
+            this.alert = true;
           } else {
             let error_message = error["response"]["data"];
             if (error_message.startsWith("Duplicate entry")) {
               this.message = "This email is already being used.";
-              this.alert_sign_up = true;
+              this.alert = true;
             }
           }
         });
