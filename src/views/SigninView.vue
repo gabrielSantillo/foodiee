@@ -199,7 +199,9 @@ export default {
         this.first_name === "" ||
         this.last_name === ""
       ) {
-        return (this.alert = true);
+        this.message = "All inputs must be filled in."
+        this.alert = true
+        return;
       }
       axios
         .request({
