@@ -66,6 +66,7 @@ export default {
 .home__container {
   height: calc(100vh - $--header-height);
   align-content: center;
+  margin-top: 32px;
 }
 
 .home__title {
@@ -75,7 +76,7 @@ export default {
 }
 
 .home__subtitle {
-  font-size: $--h1-font-size;
+  font-size: $--h2-font-size;
   color: $--title-color;
   margin-bottom: $--mb-4;
 }
