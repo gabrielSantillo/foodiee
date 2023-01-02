@@ -17,11 +17,11 @@
     <section class="home" ref="home" v-scroll-reveal v-for="restaurant in restaurants" :key="restaurant['id']">
       <div class="home__container bd-container bd-grid">
         <div class="home__data">
-          <h1 class="home__title">{{ restaurant['name'] }}</h1>
+          <h1 class="home__title">{{restaurant['name']}}</h1>
           <h2 class="home__subtitle">
-            {{ restaurant['bio'] }}
+                {{restaurant['bio']}}
           </h2>
-          <router-link to="" class="button" color="#FFF">View Menu</router-link>
+          <router-link to="/menu" class="button" color="#FFF">View Menu</router-link>
         </div>
 
         <img src="@/assets/home.png" alt="" class="home__img" />

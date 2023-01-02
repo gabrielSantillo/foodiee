@@ -2,7 +2,7 @@
   <div>
     <div class="l-header" ref="header" @scroll="scrollHeader">
       <nav class="nav bd-container">
-        <router-link to="/" class="nav__logo">Foodiee</router-link>
+        <router-link to="/home" class="nav__logo">Foodiee</router-link>
 
         <div class="nav__menu" ref="nav-menu" v-if="show_menu">
           <ul class="nav__list">
