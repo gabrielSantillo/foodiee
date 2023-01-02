@@ -13,13 +13,13 @@
         {{ message }}
       </v-alert>
     </div>
-    <section class="home" ref="home" v-scroll-reveal>
+
+    <section class="home" ref="home" v-scroll-reveal v-for="restaurant in restaurants" :key="restaurant['id']">
       <div class="home__container bd-container bd-grid">
         <div class="home__data">
-          <h1 class="home__title">Foodiee</h1>
+          <h1 class="home__title">{{ restaurant['name'] }}</h1>
           <h2 class="home__subtitle">
-            Try the best food of <br />
-            the week.
+            {{ restaurant['bio'] }}
           </h2>
           <router-link to="" class="button" color="#FFF">View Menu</router-link>
         </div>
@@ -41,6 +41,7 @@ export default {
       })
       .then((response) => {
         this.restaurants = response["data"];
+        this.restaurants
       })
       .catch((error) => {
         this.message = "Sorry, an error has occurred. Please, reload the page."
