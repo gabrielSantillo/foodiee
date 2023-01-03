@@ -24,7 +24,7 @@
           <router-link to="/menu" class="button" color="#FFF">View Menu</router-link>
         </div>
         
-        <img src="@/assets/home.png" alt="" class="home__img" />
+        <img :src="restaurant['file_name']" alt="" class="home__img" />
       </div>
     </section>
   </div>
@@ -69,7 +69,7 @@ export default {
             // This is so we can use it for things like image src and such
             let src = URL.createObjectURL(response["data"]);
             /* adding this paths since they strings to the images_src array to then, loop through this array and print the images onto the page */
-            this.images_src.push(src);
+            this.restaurants[i]['file_name'] = src
           })
           .catch((err) => {
             err;
