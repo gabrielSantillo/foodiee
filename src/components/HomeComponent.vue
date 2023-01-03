@@ -21,7 +21,7 @@
           <h2 class="home__subtitle">
                 {{restaurant['bio']}}
           </h2>
-          <router-link to="/menu" class="button" color="#FFF">View Menu</router-link>
+          <button class="button" @click="menu_page(restaurant, $event)">View More</button>
         </div>
         
         <img :src="restaurant['file_name']" alt="" class="home__img" />
@@ -32,6 +32,7 @@
 
 <script>
 import axios from "axios";
+import cookies from "vue-cookies"
 
 export default {
   mounted() {
@@ -75,6 +76,17 @@ export default {
             err;
           });
       }
+    },
+
+    menu_page(restaurant) {
+      /* stringfy the restaurant object */
+      let restaurant_object_json = JSON.stringify(restaurant);
+      /* set the cookie with the JSON restaurant value */
+      cookies.set(`restaurant_object`, restaurant_object_json);
+      /* set a cookie with the restaurant_id value */
+      cookies.set(`restaurant_id`, `${restaurant[`id`]}`);
+      /* leave the user to restaraunt menu options */
+      this.$router.push(`menu`);
     }
   },
 
