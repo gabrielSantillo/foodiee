@@ -23,7 +23,7 @@
           </h2>
           <router-link to="/menu" class="button" color="#FFF">View Menu</router-link>
         </div>
-
+        
         <img src="@/assets/home.png" alt="" class="home__img" />
       </div>
     </section>
@@ -41,10 +41,7 @@ export default {
       })
       .then((response) => {
         this.restaurants = response["data"];
-        for(let i = 0; i < response['data'].length; i++) {
-            this.files_name.push(response['data'][i]['file_name'])
-        }
-        this.files_name
+        this.get_files(this.restaurants)
       })
       .catch((error) => {
         this.message = "Sorry, an error has occurred. Please, reload the page."
@@ -54,14 +51,14 @@ export default {
   },
 
   methods: {
-    get_files(files_name) {
-        for (let i = 0; i < files_name.length; i++) {
+    get_files(restaurants) {
+        for (let i = 0; i < restaurants.length; i++) {
         axios
           .request({
             // Standard URL and params
-            url: `http://127.0.0.1:5000/api/image`,
+            url: `http://127.0.0.1:5000/api/restaurant-images`,
             params: {
-              file_name: files_name[i]["file_name"],
+              file_name: restaurants[i]['file_name'],
             },
             // THIS MUST BE HERE EXACTLY THE SAME
             // This lets axios know to expect a blob (one way to represent a file)
@@ -86,7 +83,7 @@ export default {
       restaurants: [],
       message: "",
       alert: false,
-      files_name: []
+      images_src: []
     };
   },
 };
