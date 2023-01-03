@@ -4,36 +4,17 @@
       <span class="section-subtitle">Special</span>
       <h2 class="section-title">Menu of the week</h2>
 
-      <div class="menu__container bd-grid">
-        <div class="menu__content">
-          <img src="@/assets/plate1.png" alt="" class="menu__img" />
-          <h3 class="menu__name">Barbecue Salad</h3>
-          <span class="menu__detail">Delicious dish</span>
-          <span class="menu__price">$22.00</span>
+      <div class="menu__container bd-grid" >
+        <div class="menu__content" v-for="(item, index) in items" :key="index">
+          <img :src="item['file_name']" alt="" class="menu__img" />
+          <h3 class="menu__name">{{item['name']}}</h3>
+          <span class="menu__detail">{{item['description']}}</span>
+          <span class="menu__price">${{item['price']}}</span>
           <a href="" class="button menu__button"
             ><i class="bx bx-cart-alt"></i
           ></a>
         </div>
 
-        <div class="menu__content">
-          <img src="@/assets/plate2.png" alt="" class="menu__img" />
-          <h3 class="menu__name">Fish and salad</h3>
-          <span class="menu__detail">Delicious dish</span>
-          <span class="menu__price">$18.00</span>
-          <a href="" class="button menu__button"
-            ><i class="bx bx-cart-alt"></i
-          ></a>
-        </div>
-
-        <div class="menu__content">
-          <img src="@/assets/plate3.png" alt="" class="menu__img" />
-          <h3 class="menu__name">Spinach Salad</h3>
-          <span class="menu__detail">Delicious dish</span>
-          <span class="menu__price">$9.50</span>
-          <a href="" class="button menu__button"
-            ><i class="bx bx-cart-alt"></i
-          ></a>
-        </div>
       </div>
     </section>
   </div>
@@ -46,7 +27,10 @@ export default {
 
     data() {
         return {
-            items: []
+            items: [],
+            images_src: [],
+            message: "",
+            alert: false,
         }
     },
   mounted() {
@@ -59,10 +43,41 @@ export default {
       })
       .then((response) => {
         this.items = response['data']
+        this.get_files(this.items)
       })
       .catch((error) => {
         error;
       });
+  },
+
+  methods: {
+    get_files(items) {
+        for (let i = 0; i < items.length; i++) {
+        axios
+          .request({
+            // Standard URL and params
+            url: `http://127.0.0.1:5000/api/menu-item-images`,
+            params: {
+              file_name: items[i]['file_name'],
+            },
+            // THIS MUST BE HERE EXACTLY THE SAME
+            // This lets axios know to expect a blob (one way to represent a file)
+            responseType: "blob",
+          })
+          .then((response) => {
+            // Cool built in function that allows us to take file data and create a URL for it
+            // This is so we can use it for things like image src and such
+            let src = URL.createObjectURL(response["data"]);
+            /* adding this paths since they strings to the images_src array to then, loop through this array and print the images onto the page */
+            this.items[i]['file_name'] = src
+          })
+          .catch((error) => {
+            this.message = "Sorry, an error has occurred. Please, reload the page."
+            this.alert = true
+            error;
+          });
+      }
+    }
   },
 };
 </script>
