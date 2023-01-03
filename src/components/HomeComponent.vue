@@ -72,8 +72,10 @@ export default {
             /* adding this paths since they strings to the images_src array to then, loop through this array and print the images onto the page */
             this.restaurants[i]['file_name'] = src
           })
-          .catch((err) => {
-            err;
+          .catch((error) => {
+            this.message = "Sorry, an error has occurred. Please, reload the page."
+            this.alert = true
+            error;
           });
       }
     },
