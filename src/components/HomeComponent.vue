@@ -41,7 +41,10 @@ export default {
       })
       .then((response) => {
         this.restaurants = response["data"];
-        this.restaurants
+        for(let i = 0; i < response['data'].length; i++) {
+            this.files_name.push(response['data'][i]['file_name'])
+        }
+        this.files_name
       })
       .catch((error) => {
         this.message = "Sorry, an error has occurred. Please, reload the page."
@@ -50,11 +53,40 @@ export default {
       });
   },
 
+  methods: {
+    get_files(files_name) {
+        for (let i = 0; i < files_name.length; i++) {
+        axios
+          .request({
+            // Standard URL and params
+            url: `http://127.0.0.1:5000/api/image`,
+            params: {
+              file_name: files_name[i]["file_name"],
+            },
+            // THIS MUST BE HERE EXACTLY THE SAME
+            // This lets axios know to expect a blob (one way to represent a file)
+            responseType: "blob",
+          })
+          .then((response) => {
+            // Cool built in function that allows us to take file data and create a URL for it
+            // This is so we can use it for things like image src and such
+            let src = URL.createObjectURL(response["data"]);
+            /* adding this paths since they strings to the images_src array to then, loop through this array and print the images onto the page */
+            this.images_src.push(src);
+          })
+          .catch((err) => {
+            err;
+          });
+      }
+    }
+  },
+
   data() {
     return {
       restaurants: [],
       message: "",
-      alert: false
+      alert: false,
+      files_name: []
     };
   },
 };
