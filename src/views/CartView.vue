@@ -1,5 +1,5 @@
 <template>
-  <div class="about">
+  <div class="cart">
     <header-component></header-component>
     <cart-component></cart-component>
     <footer-component></footer-component>

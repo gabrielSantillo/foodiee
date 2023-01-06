@@ -79,10 +79,10 @@ export default {
   .home__img {
     width: 500px;
   }
-  .about__data {
+  .cart__data {
     display: grid;
     transform: translateX(-50px);
-     > .section-subtitle, .section-title, .about__description, .button {
+     > .section-subtitle, .section-title, .cart__description, .button {
       justify-self: start;
       text-align: start;
      }
