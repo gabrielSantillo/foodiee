@@ -10,9 +10,9 @@
           <h3 class="menu__name">{{item['name']}}</h3>
           <span class="menu__detail">{{item['description']}}</span>
           <span class="menu__price">${{item['price']}}</span>
-          <a href="" class="button menu__button"
-            ><i class="bx bx-cart-alt"></i
-          ></a>
+          
+            <i class="button menu__button bx bx-cart-alt"></i
+          >
         </div>
 
       </div>
@@ -130,5 +130,6 @@ export default {
   padding: 0.9375rem 1.2195rem;
   border-radius: 0.5rem 0 0.5rem 0;
   font-size: 1.5rem;
+  cursor: pointer;
 }
 </style>
