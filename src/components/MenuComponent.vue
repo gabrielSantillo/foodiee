@@ -1,8 +1,8 @@
 <template>
   <div>
     <div class="alert">
-      <v-alert type="success" :value="alert" border="left">
-        I'm a success alert.
+      <v-alert type="success" :value="alert" border="left" dismissible transition="fade-transition">
+        {{message}}
       </v-alert>
     </div>
 
@@ -36,7 +36,7 @@ export default {
       images_src: [],
       message: "",
       alert: false,
-      cart: [],
+      cart: []
     };
   },
   mounted() {
@@ -59,26 +59,19 @@ export default {
   methods: {
     add_item(item) {
       if (cookies.get(`cart`) === null) {
-
         this.cart.push(item);
       } else {
-
-        let cart_array = JSON.parse(cookies.get(`cart`));
+        let cart_array = cookies.get(`cart`);
         for (let i = 0; i < cart_array.length; i++) {
           this.cart.push(cart_array[i]);
         }
         this.cart.push(item);
-        this.alert_time_out()
       }
 
       let cart_json = JSON.stringify(this.cart);
       cookies.set(`cart`, cart_json);
-    },
-
-    alert_time_out() {
-      setTimeout(() => {
-        this.alert = true;
-      }, 2000);
+      this.alert = true,
+      this.message = "Item added to the cart."
     },
 
     get_files(items) {

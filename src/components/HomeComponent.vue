@@ -8,6 +8,7 @@
         prominent
         border="left"
         dismissible
+        transition="fade-transition"
       >
         {{ message }}
       </v-alert>
