@@ -1,20 +1,26 @@
 <template>
   <div>
+    <div class="alert">
+      <v-alert type="success" :value="alert" border="left">
+        I'm a success alert.
+      </v-alert>
+    </div>
+
     <section class="menu section bd-container" ref="menu" v-scroll-reveal>
       <span class="section-subtitle">Special</span>
       <h2 class="section-title">Menu of the week</h2>
 
-      <div class="menu__container bd-grid" >
+      <div class="menu__container bd-grid">
         <div class="menu__content" v-for="(item, index) in items" :key="index">
           <img :src="item['file_name']" alt="" class="menu__img" />
-          <h3 class="menu__name">{{item['name']}}</h3>
-          <span class="menu__detail">{{item['description']}}</span>
-          <span class="menu__price">${{item['price']}}</span>
-          
-            <i class="button menu__button bx bx-cart-alt"></i
-          >
+          <h3 class="menu__name">{{ item["name"] }}</h3>
+          <span class="menu__detail">{{ item["description"] }}</span>
+          <span class="menu__price">${{ item["price"] }}</span>
+          <i
+            @click="add_item(item, $event)"
+            class="button menu__button bx bx-cart-alt"
+          ></i>
         </div>
-
       </div>
     </section>
   </div>
@@ -22,17 +28,17 @@
 
 <script>
 import axios from "axios";
-import cookies from "vue-cookies"
+import cookies from "vue-cookies";
 export default {
-
-    data() {
-        return {
-            items: [],
-            images_src: [],
-            message: "",
-            alert: false,
-        }
-    },
+  data() {
+    return {
+      items: [],
+      images_src: [],
+      message: "",
+      alert: false,
+      cart: [],
+    };
+  },
   mounted() {
     axios
       .request({
@@ -42,8 +48,8 @@ export default {
         },
       })
       .then((response) => {
-        this.items = response['data']
-        this.get_files(this.items)
+        this.items = response["data"];
+        this.get_files(this.items);
       })
       .catch((error) => {
         error;
@@ -51,14 +57,38 @@ export default {
   },
 
   methods: {
+    add_item(item) {
+      if (cookies.get(`cart`) === null) {
+
+        this.cart.push(item);
+      } else {
+
+        let cart_array = JSON.parse(cookies.get(`cart`));
+        for (let i = 0; i < cart_array.length; i++) {
+          this.cart.push(cart_array[i]);
+        }
+        this.cart.push(item);
+        this.alert_time_out()
+      }
+
+      let cart_json = JSON.stringify(this.cart);
+      cookies.set(`cart`, cart_json);
+    },
+
+    alert_time_out() {
+      setTimeout(() => {
+        this.alert = true;
+      }, 2000);
+    },
+
     get_files(items) {
-        for (let i = 0; i < items.length; i++) {
+      for (let i = 0; i < items.length; i++) {
         axios
           .request({
             // Standard URL and params
             url: `http://127.0.0.1:5000/api/menu-item-images`,
             params: {
-              file_name: items[i]['file_name'],
+              file_name: items[i]["file_name"],
             },
             // THIS MUST BE HERE EXACTLY THE SAME
             // This lets axios know to expect a blob (one way to represent a file)
@@ -69,15 +99,16 @@ export default {
             // This is so we can use it for things like image src and such
             let src = URL.createObjectURL(response["data"]);
             /* adding this paths since they strings to the images_src array to then, loop through this array and print the images onto the page */
-            this.items[i]['file_name'] = src
+            this.items[i]["file_name"] = src;
           })
           .catch((error) => {
-            this.message = "Sorry, an error has occurred. Please, reload the page."
-            this.alert = true
+            this.message =
+              "Sorry, an error has occurred. Please, reload the page.";
+            this.alert = true;
             error;
           });
       }
-    }
+    },
   },
 };
 </script>

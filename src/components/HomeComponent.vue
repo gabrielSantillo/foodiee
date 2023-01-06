@@ -8,7 +8,6 @@
         prominent
         border="left"
         dismissible
-        transition="fade-transition"
       >
         {{ message }}
       </v-alert>
@@ -124,12 +123,5 @@ export default {
   margin-bottom: $--mb-4;
 }
 
-.alert {
-  display: grid;
-  place-items: center;
 
-  > v-alert {
-    max-width: 50%;
-  }
-}
 </style>

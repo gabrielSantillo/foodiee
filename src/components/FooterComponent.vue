@@ -4,7 +4,7 @@
             <div class="footer__container bd-grid">
                 <div class="footer__content">
                     <a href="" class="footer__logo">Foodiee</a>
-                    <span class="footer__description">Restaurant</span>
+                    <span class="footer__description">Application</span>
 
                     <div>
                         <a href="" class="footer__social"><i class='bx bxl-github' ></i></a>

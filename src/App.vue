@@ -163,4 +163,13 @@ img {
 .button:hover {
     background-color: $--first-color-alt;
 }
+
+.alert {
+  display: grid;
+  place-items: center;
+
+  > v-alert {
+    max-width: 50%;
+  }
+}
 </style>
