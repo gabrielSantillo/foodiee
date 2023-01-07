@@ -1,8 +1,7 @@
 <template>
-    <div>
+  <div>
     <section class="cart section bd-container" ref="cart" v-scroll-reveal>
-      <span class="section-subtitle">Special</span>
-      <h2 class="section-title">Menu of the week</h2>
+      <h2 class="section-title">Cart</h2>
 
       <div class="cart__container bd-grid">
         <div class="cart__content" v-for="(item, index) in items" :key="index">
@@ -10,33 +9,51 @@
           <h3 class="cart__name">{{ item["name"] }}</h3>
           <span class="cart__price">${{ item["price"] }}</span>
           <i
-            @click="add_item(item, $event)"
+            @click="delete_item(item, $event)"
             class="button cart__button bx bx-trash"
           ></i>
         </div>
       </div>
     </section>
-
-    </div>
+  </div>
 </template>
 
 <script>
-import cookies from "vue-cookies"
-    export default {
-        mounted () {
-            this.items = cookies.get('cart')
-        },
+import cookies from "vue-cookies";
+export default {
+  methods: {
+    delete_item(food) {
+      /* setting the variable with the cookie value of cart */
+      let cart = cookies.get(`cart`);
+      /* for loop that will go through the cart */
+      for (let i = 0; i < cart.length; i++) {
+        /* checking if the the food id is equal to the cart id */
+        if (food[`id`] === cart[i][`id`]) {
+          /* if yes, splice this item */
+          cart.splice(i, 1);
+          /* set the cookie again */
+          cookies.set(`cart`, JSON.stringify(cart));
+          /* setting the variable with the cart value */
+          this.items = cart;
+          return;
+        }
+      }
+    },
+  },
+  mounted() {
+    this.items = cookies.get("cart");
+  },
 
-        data() {
-            return {
-                items: undefined
-            }
-        },
-    }
+  data() {
+    return {
+      items: undefined,
+    };
+  },
+};
 </script>
 
 <style lang="scss" scoped>
-@import '@/scss/variables.scss';
+@import "@/scss/variables.scss";
 
 .cart__container {
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -66,8 +83,8 @@ import cookies from "vue-cookies"
 }
 
 .cart__price {
-    color: $--first-color;
-    font-size: $--h2-font-size;
+  color: $--first-color;
+  font-size: $--h2-font-size;
 }
 
 .cart__name {
@@ -82,6 +99,6 @@ import cookies from "vue-cookies"
   border-radius: 0.5rem 0 0.5rem 0;
   font-size: 1.5rem;
   cursor: pointer;
-  background-color: #E53935;
+  background-color: #e53935;
 }
 </style>
