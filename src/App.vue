@@ -30,11 +30,11 @@ export default {
   }
 }
 @media screen and (min-width: 576px) {
-  .home__container, .about__container {
+  .home__container, .cart__container {
     grid-template-columns: repeat(2, 1fr);
     align-items: center;
   }
-  .about__img {
+  .cart__img {
     order: -1;
   }
   .contact__container {
@@ -76,7 +76,7 @@ export default {
     margin-left: auto;
     margin-right: auto;
   }
-  .home__img {
+  .cart__img {
     width: 500px;
   }
   .cart__data {
