@@ -5,7 +5,9 @@
                 <div class="cart__data">
                     <span class="section-subtitle">{{item['name']}}</span>
                     <h2 class="section-title">${{item['price']}}</h2>
-                    <button href="#" class="button">Delete item</button>
+                    <v-btn class="button" depressed color="error">
+                        Delete
+                    </v-btn>
                 </div>
 
                 <img :src="item['file_name']" alt="" class="cart__img">
@@ -39,6 +41,14 @@ import cookies from "vue-cookies"
 @import '@/scss/variables.scss';
 
 .cart__container {
+    border-radius: 0.5rem;
+    box-shadow: 0 2px 4px rgba(3, 74, 40, 0.15);
+    padding: 1.5rem;
+    max-width: 60%;
+    
+}
+
+.cart__container {
     margin-bottom: 64px;
 }
 
@@ -54,5 +64,9 @@ import cookies from "vue-cookies"
     max-width: 250px;
     border-radius: .5rem;
     justify-self: center;
+}
+
+.delete {
+    background-color: red;
 }
 </style>
