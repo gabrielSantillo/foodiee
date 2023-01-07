@@ -1,24 +1,22 @@
 <template>
     <div>
-        <section class="cart section bd-container" ref="cart" v-scroll-reveal>
-            <div class="cart__container bd-grid" v-for="(item, index) in items" :key="index">
-                <div class="cart__data">
-                    <span class="section-subtitle">{{item['name']}}</span>
-                    <h2 class="section-title">${{item['price']}}</h2>
-                    <v-btn class="button" depressed color="error">
-                        Delete
-                    </v-btn>
-                </div>
+    <section class="cart section bd-container" ref="cart" v-scroll-reveal>
+      <span class="section-subtitle">Special</span>
+      <h2 class="section-title">Menu of the week</h2>
 
-                <img :src="item['file_name']" alt="" class="cart__img">
-            </div>
-        </section>
-        <section>
-            <div>
-                <p>Total: R$ {{}}</p>
-                <button>Confirm</button>
-            </div>
-        </section>
+      <div class="cart__container bd-grid">
+        <div class="cart__content" v-for="(item, index) in items" :key="index">
+          <img :src="item['file_name']" alt="" class="cart__img" />
+          <h3 class="cart__name">{{ item["name"] }}</h3>
+          <span class="cart__price">${{ item["price"] }}</span>
+          <i
+            @click="add_item(item, $event)"
+            class="button cart__button bx bx-cart-alt"
+          ></i>
+        </div>
+      </div>
+    </section>
+
     </div>
 </template>
 
@@ -41,32 +39,50 @@ import cookies from "vue-cookies"
 @import '@/scss/variables.scss';
 
 .cart__container {
-    border-radius: 0.5rem;
-    box-shadow: 0 2px 4px rgba(3, 74, 40, 0.15);
-    padding: 1.5rem;
-    max-width: 60%;
-    
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  column-gap: 48px;
+  place-items: center;
 }
 
-.cart__container {
-    margin-bottom: 64px;
-}
-
-.cart__data {
-    text-align: center;
-}
-
-.cart__description {
-    margin-bottom: $--mb-3;
+.cart__content {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  background-color: $--container-color;
+  border-radius: 0.5rem;
+  box-shadow: 0 2px 4px rgba(3, 74, 40, 0.15);
+  padding: 1.5rem;
+  margin: 0 16px;
 }
 
 .cart__img {
-    max-width: 250px;
-    border-radius: .5rem;
-    justify-self: center;
+  max-width: 200px;
+  align-self: center;
+  margin-bottom: $--mb-2;
 }
 
-.delete {
-    background-color: red;
+.cart__name,
+.cart__price {
+  font-weight: $--font-semi-bold;
+  color: $--title-color;
+}
+
+.cart__name {
+  font-size: $--normal-font-size;
+}
+
+.cart__detail {
+  margin-bottom: $--mb-1;
+}
+
+.cart__button {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  display: flex;
+  padding: 0.9375rem 1.2195rem;
+  border-radius: 0.5rem 0 0.5rem 0;
+  font-size: 1.5rem;
+  cursor: pointer;
 }
 </style>
