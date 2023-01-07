@@ -11,7 +11,7 @@
           <span class="cart__price">${{ item["price"] }}</span>
           <i
             @click="add_item(item, $event)"
-            class="button cart__button bx bx-cart-alt"
+            class="button cart__button bx bx-trash"
           ></i>
         </div>
       </div>
@@ -61,18 +61,17 @@ import cookies from "vue-cookies"
   margin-bottom: $--mb-2;
 }
 
-.cart__name,
-.cart__price {
+.cart__name {
   font-weight: $--font-semi-bold;
-  color: $--title-color;
+}
+
+.cart__price {
+    color: $--first-color;
+    font-size: $--h2-font-size;
 }
 
 .cart__name {
   font-size: $--normal-font-size;
-}
-
-.cart__detail {
-  margin-bottom: $--mb-1;
 }
 
 .cart__button {
@@ -80,9 +79,9 @@ import cookies from "vue-cookies"
   bottom: 0;
   right: 0;
   display: flex;
-  padding: 0.9375rem 1.2195rem;
   border-radius: 0.5rem 0 0.5rem 0;
   font-size: 1.5rem;
   cursor: pointer;
+  background-color: #E53935;
 }
 </style>
