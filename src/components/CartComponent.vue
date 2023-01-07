@@ -16,19 +16,16 @@
       </div>
     </section>
 
-    <div class="confirm__container">
-        <div class="confirm__line"></div>
-        <div class="confirm-div">
-            <p>Total $: {{}}</p>
-            <button class="button" @click="confirm_order(restaurant, $event)">Confirm Order</button>
-        </div>
-    </div>
+    <confirm-order-component></confirm-order-component>
+
   </div>
 </template>
 
 <script>
 import cookies from "vue-cookies";
+import ConfirmOrderComponent from './ConfirmOrderComponent.vue';
 export default {
+  components: { ConfirmOrderComponent },
   methods: {
     delete_item(food) {
       /* setting the variable with the cookie value of cart */
@@ -110,28 +107,5 @@ export default {
   background-color: #e53935;
 }
 
-.confirm__container {
-    display: grid;
-    place-items: center;
-    margin-top: 48px;
 
-    >.confirm__line {
-        width: 80%;
-        height: .02rem;
-        background-color: $--text-color-light;
-    }
-
-    >.confirm-div {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        place-items: center;
-        justify-content: center;
-        gap: 24px;
-        margin-top: 24px;
-
-        >p {
-            justify-content: center;
-        }
-    }
-}
 </style>
