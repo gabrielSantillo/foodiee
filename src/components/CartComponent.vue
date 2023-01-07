@@ -4,8 +4,7 @@
             <div class="cart__container bd-grid" v-for="(item, index) in items" :key="index">
                 <div class="cart__data">
                     <span class="section-subtitle">{{item['name']}}</span>
-                    <h2 class="section-title">{{item['price']}}</h2>
-                    <p class="cart__description">{{item['description']}}</p>
+                    <h2 class="section-title">${{item['price']}}</h2>
                     <button href="#" class="button">Delete item</button>
                 </div>
 
