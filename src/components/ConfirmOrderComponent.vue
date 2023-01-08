@@ -3,7 +3,7 @@
     <div class="confirm__container">
       <div class="confirm__line"></div>
       <div class="confirm-div">
-        <p>Total $: {{}}</p>
+            <p>Total $: {{total_order}}</p>
         <button class="button" @click="confirm_order(restaurant, $event)">
           Confirm Order
         </button>
@@ -13,7 +13,22 @@
 </template>
 
 <script>
-export default {};
+import cookies from "vue-cookies";
+export default {
+    data() {
+        return {
+            total_order: 0,
+        }
+    },
+
+    mounted () {
+        let order = cookies.get('cart');
+        for(let i = 0; i <= order.length; i++) {
+            this.total_order += parseFloat(order[i]['price'])
+        }
+        
+    },
+};
 </script>
 
 <style lang="scss" scoped>
@@ -39,7 +54,7 @@ export default {};
         margin-top: 24px;
 
         >p {
-            justify-content: center;
+            font-weight: $--font-semi-bold;
         }
     }
 }
