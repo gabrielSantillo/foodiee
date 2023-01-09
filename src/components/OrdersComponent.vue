@@ -1,8 +1,8 @@
 <template>
   <div>
     <section class="services section bd-container" ref="services" v-scroll-reveal>
-      <span class="section-subtitle">Offering</span>
-      <h2 class="section-title">Our amazing services</h2>
+      <span class="section-subtitle">Orders</span>
+      <h2 class="section-title">Tracking your order</h2>
 
       <div class="services__container bd-grid">
         <div class="services__content">

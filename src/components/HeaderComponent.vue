@@ -13,7 +13,7 @@
               <router-link to="/cart" class="nav__link">Cart</router-link>
             </li>
             <li class="nav__item">
-              <router-link to="/services" class="nav__link">Services</router-link>
+              <router-link to="/orders" class="nav__link">Orders</router-link>
             </li>
             <li class="nav__item">
               <router-link to="/menu" class="nav__link">Menu</router-link>
