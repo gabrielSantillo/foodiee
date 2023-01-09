@@ -1,9 +1,20 @@
 <template>
   <div>
+    <div class="alert">
+      <v-alert
+        type="error"
+        :value="alert"
+        border="left"
+        dismissible
+        transition="fade-transition"
+      >
+        {{ message }}
+      </v-alert>
+    </div>
     <div class="confirm__container">
       <div class="confirm__line"></div>
       <div class="confirm-div">
-            <p>Total $: {{total_order}}</p>
+        <p>Total $: {{ total_order }}</p>
         <button class="button" @click="confirm_order(items, $event)">
           Confirm Order
         </button>
@@ -14,12 +25,11 @@
 
 <script>
 import cookies from "vue-cookies";
-import axios from "axios"
+import axios from "axios";
 export default {
-
-    methods: {
-        confirm_order() {
-            let menu_items_id = [];
+  methods: {
+    confirm_order() {
+      let menu_items_id = [];
       /* for loop that goes through to the foods and add the food id in the menu itens array */
       for (let i = 0; i < this.items.length; i++) {
         menu_items_id.push(this.items[i][`menu_item_id`]);
@@ -45,30 +55,32 @@ export default {
           /* set the cookie with the JSON value of the order id */
           cookies.set(`order_id`, order_id_json);
 
-          alert("order made")
+          
         })
         .catch((error) => {
           error;
           /* on failure show a message */
-          alert(`Sorry, an error have occured`);
+          this.message = "Sorry, an error have occurred."
+          this.alert = true
         });
-        }
     },
-    data() {
-        return {
-            total_order: 0,
-            items: undefined,
-            order_id: []
-        }
-    },
+  },
+  data() {
+    return {
+      total_order: 0,
+      items: undefined,
+      order_id: [],
+      message: "Sorry, an error have occurred.",
+      alert: false
+    };
+  },
 
-    mounted () {
-        this.items = cookies.get('cart');
-        for(let i = 0; i <= this.items.length; i++) {
-            this.total_order += parseFloat(this.items[i]['price'])
-        }
-        
-    },
+  mounted() {
+    this.items = cookies.get("cart");
+    for (let i = 0; i <= this.items.length; i++) {
+      this.total_order += parseFloat(this.items[i]["price"]);
+    }
+  },
 };
 </script>
 
@@ -76,27 +88,27 @@ export default {
 @import "@/scss/variables.scss";
 
 .confirm__container {
+  display: grid;
+  place-items: center;
+  margin-top: 48px;
+
+  > .confirm__line {
+    width: 80%;
+    height: 0.02rem;
+    background-color: $--text-color-light;
+  }
+
+  > .confirm-div {
     display: grid;
+    grid-template-columns: 1fr 1fr;
     place-items: center;
-    margin-top: 48px;
+    justify-content: center;
+    gap: 24px;
+    margin-top: 24px;
 
-    >.confirm__line {
-        width: 80%;
-        height: .02rem;
-        background-color: $--text-color-light;
+    > p {
+      font-weight: $--font-semi-bold;
     }
-
-    >.confirm-div {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        place-items: center;
-        justify-content: center;
-        gap: 24px;
-        margin-top: 24px;
-
-        >p {
-            font-weight: $--font-semi-bold;
-        }
-    }
+  }
 }
 </style>
