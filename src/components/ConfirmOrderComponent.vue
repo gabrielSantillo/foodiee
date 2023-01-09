@@ -48,14 +48,12 @@ export default {
           },
         })
         .then((response) => {
-          /* on success grab the order_id response */
-          this.order_id.push(response[`data`][`order_id`]);
           /* stringfy the order id */
-          let order_id_json = JSON.stringify(this.orders_id);
+          let order_id_json = JSON.stringify(response[`data`][`order_id`]);
           /* set the cookie with the JSON value of the order id */
           cookies.set(`order_id`, order_id_json);
 
-          
+          this.$router.push(`/orders`);
         })
         .catch((error) => {
           error;
@@ -69,7 +67,6 @@ export default {
     return {
       total_order: 0,
       items: undefined,
-      order_id: [],
       message: "Sorry, an error have occurred.",
       alert: false
     };

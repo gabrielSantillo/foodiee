@@ -2,7 +2,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 import CartView from '@/views/CartView.vue'
-import ServicesView from '@/views/ServicesView.vue'
+import OrdersView from '@/views/OrdersView.vue'
 import MenuView from '@/views/MenuView.vue'
 import ContactView from '@/views/ContactView.vue'
 import LoginView from '@/views/SigninView.vue'
@@ -26,8 +26,8 @@ const routes = [
   },
 
   {
-    path: '/services',
-    component: ServicesView
+    path: '/orders',
+    component: OrdersView
   },
   
   {
