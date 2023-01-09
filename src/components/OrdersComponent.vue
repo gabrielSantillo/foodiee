@@ -50,7 +50,14 @@ export default {
         },
       })
       .then((response) => {
-        response;
+        let id = cookies.get(`order_id`)
+        for(let i = 0; i <= response['data'].length; i++) {
+          if(parseInt(id) === response['data'][i]['id']) {
+            this.order.push(response['data'][i])
+          } else {
+            this.past_orders.push(response['data'][i])
+          }
+        }
       })
       .catch((error) => {
         error;
