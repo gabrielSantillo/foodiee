@@ -17,12 +17,20 @@
       <h2 class="section-title">Tracking your order</h2>
 
       <div class="orders__container bd-grid">
-        <div class="orders__content">
-          <h3 class="orders__title">Excellent food</h3>
-          <p class="orders__description">
-            We offer our clients excellent quality services for many years, with
-            the best and delicious food in the city.
-          </p>
+        <div
+          class="orders__content"
+          v-for="(order, index) in last_order"
+          :key="index"
+        >
+          <h3 class="orders__title">Order id:{{ order["id"] }}</h3>
+          <div v-for="(item, index) in items" :key="index">
+            <p class="orders__description">
+              {{ item["name"] }} ${{item['price']}}
+            </p>
+          </div>
+          <p> {{ is_confirmed }}</p>
+          <p> {{ is_complete }}</p>
+          <h3 class="section-subtitle">Total: ${{ order["total_order"] }}</h3>
         </div>
       </div>
     </section>
@@ -35,10 +43,14 @@ import axios from "axios";
 export default {
   data() {
     return {
-      order: [],
+      last_order: [],
       past_orders: [],
       message: "",
-      alert: false
+      alert: false,
+      items: undefined,
+      total_price: "",
+      is_confirmed: "Confirming your order",
+      is_complete: "Order not completed"
     };
   },
   mounted() {
@@ -50,20 +62,28 @@ export default {
         },
       })
       .then((response) => {
-        let id = cookies.get(`order_id`)
-        for(let i = 0; i <= response['data'].length; i++) {
-          if(parseInt(id) === response['data'][i]['id']) {
-            this.order.push(response['data'][i])
+        let id = cookies.get(`order_id`);
+        for (let i = 0; i <= response["data"].length; i++) {
+          if (parseInt(id) === response["data"][i]["id"]) {
+            this.last_order.push(response["data"][i]);
+            this.items = (response["data"][i]["menu_items"])
+            this.total_price = cookies.get('total_order')
+
+            if(response['data'][i]['is_confirmed'] === "1") {
+              this.is_confirmed = "Order confirmed"
+            }
+
+            if(response['data'][i]['is_complete'] === "1") {
+              this.is_complete = "Order completed"
+            }
+
           } else {
-            this.past_orders.push(response['data'][i])
+            this.past_orders.push(response["data"][i]);
           }
         }
       })
       .catch((error) => {
         error;
-        /* on failure show a message */
-        this.message = "Sorry, an error have occurred.";
-        this.alert = true;
       });
   },
 };

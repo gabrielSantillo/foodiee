@@ -76,6 +76,7 @@ export default {
     this.items = cookies.get("cart");
     for (let i = 0; i <= this.items.length; i++) {
       this.total_order += parseFloat(this.items[i]["price"]);
+      cookies.set('total_order', this.total_order)
     }
   },
 };
