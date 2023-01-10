@@ -35,13 +35,17 @@
         </div>
       </div>
     </section>
+
+    <past-orders-component></past-orders-component>
   </div>
 </template>
 
 <script>
 import cookies from "vue-cookies";
 import axios from "axios";
+import PastOrdersComponent from './PastOrdersComponent.vue';
 export default {
+  components: { PastOrdersComponent },
   data() {
     return {
       last_order: [],
