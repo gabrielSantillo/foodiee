@@ -70,11 +70,11 @@ export default {
             this.items = (response["data"][i]["menu_items"])
             this.total_price = cookies.get('total_order')
 
-            if(response['data'][i]['is_confirmed'] === "1") {
+            if(response['data'][i]['is_confirmed'] === 1) {
               this.is_confirmed = "Order confirmed"
             }
 
-            if(response['data'][i]['is_complete'] === "1") {
+            if(response['data'][i]['is_complete'] === 1) {
               this.is_complete = "Order completed"
             }
 
@@ -105,6 +105,7 @@ export default {
   box-shadow: 0 2px 4px rgba(3, 74, 40, 0.15);
   max-width: 350px;
   display: grid;
+  padding-top: 16px;
 }
 
 .orders__img {
@@ -128,7 +129,7 @@ export default {
     width: 80%;
     height: 0.02rem;
     background-color: $--text-color-light;
-    justify-self: center;
     margin: 24px 0;
+    justify-self: center;
   }
 </style>
