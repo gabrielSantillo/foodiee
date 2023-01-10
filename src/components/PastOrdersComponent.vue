@@ -9,7 +9,18 @@
 </template>
 
 <script>
-export default {};
+import cookies from "vue-cookies"
+export default {
+    data() {
+        return {
+            past_orders: undefined
+        }
+    },
+    mounted () {
+        this.past_orders = cookies.get('past_orders')
+        this.past_orders
+    },
+};
 </script>
 
 <style lang="scss" scoped>
