@@ -30,6 +30,7 @@
           </div>
           <p> {{ is_confirmed }}</p>
           <p> {{ is_complete }}</p>
+          <div class="order__line"></div>
           <h3 class="section-subtitle">Total: ${{ order["total_order"] }}</h3>
         </div>
       </div>
@@ -95,10 +96,15 @@ export default {
 .orders__container {
   row-gap: 2.5rem;
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  place-items: center;
 }
 
 .orders__content {
   text-align: center;
+  border-radius: 0.5rem;
+  box-shadow: 0 2px 4px rgba(3, 74, 40, 0.15);
+  max-width: 350px;
+  display: grid;
 }
 
 .orders__img {
@@ -117,4 +123,12 @@ export default {
 .orders__description {
   padding: 0 1.5rem;
 }
+
+.order__line {
+    width: 80%;
+    height: 0.02rem;
+    background-color: $--text-color-light;
+    justify-self: center;
+    margin: 24px 0;
+  }
 </style>
