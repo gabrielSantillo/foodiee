@@ -124,5 +124,7 @@ export default {
   margin-bottom: $--mb-4;
 }
 
-
+.home__img {
+  max-width: 300px;
+}
 </style>
