@@ -5,6 +5,22 @@
       <span class="section-subtitle">Past orders</span>
       <h2 class="section-title">Wanna remake an order?</h2>
     </section>
+
+    <section v-for="(order, index) in past_orders" :key="index" >
+      <div>
+        <div>
+          <div v-for="(item, index) in order['menu_items']" :key="index">
+              <p>{{item['name']}}</p>
+              <p>${{item['price']}}</p>
+          </div>
+          <img src="" alt="">
+        </div>
+        <div>
+          <p>Total ${{order['total_order']}}</p>
+          <button>Again</button>
+        </div>
+      </div>
+    </section>
   </div>
 </template>
 
