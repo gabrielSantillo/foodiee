@@ -5,13 +5,13 @@
       <span class="section-subtitle">Past orders</span>
       <h2 class="section-title">Wanna remake an order?</h2>
 
-      <div class="menu__container bd-grid">
-        <div class="menu__content" v-for="(order, index) in past_orders" :key="index">
+      <div class="past__order__container bd-grid">
+        <div class="past__order__content" v-for="(order, index) in past_orders" :key="index">
 
           <div v-for="(item, index) in order['menu_items']" :key="index">
-              <img :src="item['file_name']" alt="" class="menu__img" />
-              <h3 class="menu__name">{{ item["name"] }}</h3>
-              <span class="menu__price">${{ item["price"] }}</span>
+              <img :src="item['file_name']" alt="" class="past__order__img" />
+              <h3 class="past__order__name">{{ item["name"] }}</h3>
+              <span class="past__order__price">${{ item["price"] }}</span>
           </div>
 
           <div class="make__order">
@@ -47,13 +47,13 @@ export default {
 <style lang="scss" scoped>
 @import "@/scss/variables.scss";
 
-.menu__container {
+.past__order__container {
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   column-gap: 48px;
   justify-content: center;
 }
 
-.menu__content {
+.past__order__content {
   position: relative;
   display: flex;
   flex-direction: column;
@@ -64,17 +64,17 @@ export default {
   margin: 0 16px;
 }
 
-.menu__img {
+.past__order__img {
   width: 200px;
   align-self: center;
   margin-bottom: $--mb-2;
 }
 
-.menu__name {
+.past__order__name {
   font-size: $--normal-font-size;
 }
 
-.menu__detail {
+.past__order__detail {
   margin-bottom: $--mb-1;
 }
 
