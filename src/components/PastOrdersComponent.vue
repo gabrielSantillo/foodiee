@@ -6,26 +6,27 @@
       <h2 class="section-title">Wanna remake an order?</h2>
 
       <div class="past__order__container bd-grid">
-        <div class="past__order__content" v-for="(order, index) in past_orders" :key="index">
-
+        <div
+          class="past__order__content"
+          v-for="(order, index) in past_orders"
+          :key="index"
+        >
+          <h3 class="section-subtitle">{{ order["restaurant_name"] }}</h3>
+          <div class="order__line"></div>
           <div v-for="(item, index) in order['menu_items']" :key="index">
-              <img :src="item['file_name']" alt="" class="past__order__img" />
-              <h3 class="past__order__name">{{ item["name"] }}</h3>
-              <span class="past__order__price">${{ item["price"] }}</span>
+            <h3 class="past__order__name">{{ item["name"] }}</h3>
+            <span class="past__order__price">${{ item["price"] }}</span>
           </div>
 
           <div class="make__order">
             <span class="total__price">Total ${{ order["total_order"] }}</span>
-            <i
-            @click="make_order(order, $event)"
-            class="button menu__button">Order</i>
+            <i @click="make_order(order, $event)" class="button menu__button"
+              >Order</i
+            >
           </div>
-
         </div>
       </div>
     </section>
-
-
   </div>
 </template>
 
@@ -102,7 +103,7 @@ export default {
   justify-self: center;
 }
 
-.make__order{
+.make__order {
   margin-top: 36px;
   display: grid;
   place-items: start;
