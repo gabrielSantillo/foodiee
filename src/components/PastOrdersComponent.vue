@@ -68,7 +68,7 @@ export default {
           /* set the cookie with the JSON value of the order id */
           cookies.set(`order_id`, response[`data`][`order_id`]);
 
-          this.$router.push(`/orders`);
+          this.$forceUpdate()
         })
         .catch((error) => {
           error;

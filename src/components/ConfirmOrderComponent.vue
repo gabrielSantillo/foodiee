@@ -14,7 +14,7 @@
     <div class="confirm__container">
       <div class="confirm__line"></div>
       <div class="confirm-div">
-        <p>Total $: {{ total_order }}</p>
+        <p>Total: ${{ total_order }}</p>
         <button class="button" @click="confirm_order(items, $event)">
           Confirm Order
         </button>
