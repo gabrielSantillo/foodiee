@@ -14,11 +14,11 @@
               <span class="menu__price">${{ item["price"] }}</span>
           </div>
 
-          <div>
-            <span class="menu__price">Total ${{ order["total_order"] }}</span>
+          <div class="make__order">
+            <span class="total__price">Total ${{ order["total_order"] }}</span>
             <i
             @click="make_order(order, $event)"
-            class="button menu__button bx bx-cart-alt"></i>
+            class="button menu__button">Order</i>
           </div>
 
         </div>
@@ -70,18 +70,17 @@ export default {
   margin-bottom: $--mb-2;
 }
 
-.menu__name,
-.menu__price {
-  font-weight: $--font-semi-bold;
-  color: $--title-color;
-}
-
 .menu__name {
   font-size: $--normal-font-size;
 }
 
 .menu__detail {
   margin-bottom: $--mb-1;
+}
+
+.total__price {
+  font-size: $--normal-font-size;
+  color: $--first-color;
 }
 
 .menu__button {
@@ -101,5 +100,11 @@ export default {
   background-color: $--text-color-light;
   margin: 24px 0;
   justify-self: center;
+}
+
+.make__order{
+  margin-top: 36px;
+  display: grid;
+  place-items: start;
 }
 </style>
