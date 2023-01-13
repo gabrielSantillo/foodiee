@@ -48,10 +48,7 @@ export default {
           },
         })
         .then((response) => {
-          /* stringfy the order id */
-          let order_id_json = JSON.stringify(response[`data`][`order_id`]);
-          /* set the cookie with the JSON value of the order id */
-          cookies.set(`order_id`, order_id_json);
+          cookies.set(`order_id`, response[`data`][`order_id`]);
 
           this.$router.push(`/orders`);
         })

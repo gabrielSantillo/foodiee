@@ -31,6 +31,7 @@
 </template>
 
 <script>
+import axios from "axios";
 import cookies from "vue-cookies";
 export default {
   data() {
@@ -41,6 +42,41 @@ export default {
   mounted() {
     this.past_orders = cookies.get("past_orders");
     this.past_orders;
+  },
+
+  methods: {
+    make_order(order) {
+      let menu_items_id = [];
+      /* for loop that goes through to the foods and add the food id in the menu itens array */
+      for (let i = 0; i < order['menu_items'].length; i++) {
+        menu_items_id.push(order['menu_items'][i]['menu_item_id']);
+      }
+      /* axios request to the client-order API */
+      axios
+        .request({
+          url: `http://127.0.0.1:5000/api/client-order`,
+          headers: {
+            token: `${cookies.get(`client_token`)}`,
+          },
+          method: `POST`,
+          data: {
+            menu_items: menu_items_id,
+            restaurant_id: order['restaurant_id'],
+          },
+        })
+        .then((response) => {
+          /* set the cookie with the JSON value of the order id */
+          cookies.set(`order_id`, response[`data`][`order_id`]);
+
+          this.$router.push(`/orders`);
+        })
+        .catch((error) => {
+          error;
+          /* on failure show a message */
+          this.message = "Sorry, an error have occurred.";
+          this.alert = true;
+        });
+    },
   },
 };
 </script>
