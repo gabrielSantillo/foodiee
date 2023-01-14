@@ -7,7 +7,7 @@
         <div class="nav__menu" ref="nav-menu" v-if="show_menu">
           <ul class="nav__list">
             <li class="nav__item">
-              <router-link to="/home" class="nav__link">Home</router-link>
+              <router-link to="/" class="nav__link">Home</router-link>
             </li>
             <li class="nav__item">
               <router-link to="/cart" class="nav__link">Cart</router-link>
@@ -19,7 +19,7 @@
               <router-link to="/menu" class="nav__link">Menu</router-link>
             </li>
             <li class="nav__item">
-              <router-link to="/profile" class="nav__link">Profile</router-link>
+              <a @click="log_out" class="nav__link">Log out</a>
             </li>
           </ul>
         </div>
@@ -33,8 +33,19 @@
 </template>
 
 <script>
+import cookies from "vue-cookies"
 export default {
   methods: {
+    log_out() {
+      cookies.remove('client_id')
+      cookies.remove('restaurant_object')
+      cookies.remove('total_order')
+      cookies.remove('client_token')
+      cookies.remove('restaurant_id')
+      cookies.remove('cart')
+      this.$router.push(`/`);
+    },
+
     toggle_menu() {
       this.show_menu = !this.show_menu;
     },

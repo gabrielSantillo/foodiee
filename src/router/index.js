@@ -4,7 +4,6 @@ import HomeView from '../views/HomeView.vue'
 import CartView from '@/views/CartView.vue'
 import OrdersView from '@/views/OrdersView.vue'
 import MenuView from '@/views/MenuView.vue'
-import ProfileView from '@/views/ProfileView.vue'
 import LoginView from '@/views/SigninView.vue'
 
 Vue.use(VueRouter)
@@ -34,11 +33,6 @@ const routes = [
     path: '/menu',
     component: MenuView
   },
-
-  {
-    path: '/profile',
-    component: ProfileView
-  }
 ]
 
 const router = new VueRouter({
