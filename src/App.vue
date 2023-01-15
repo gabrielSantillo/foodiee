@@ -105,6 +105,9 @@ export default {
   left: 0;
   z-index: $--z-fixed;
   background-color: $--body-color;
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1);
+  
+    border-radius: 0 0 .5rem .5rem;
 }
 *, ::before, ::after {
   box-sizing: border-box;

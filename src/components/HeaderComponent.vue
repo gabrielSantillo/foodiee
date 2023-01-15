@@ -7,7 +7,7 @@
         <div class="nav__menu" ref="nav-menu" v-if="show_menu">
           <ul class="nav__list">
             <li class="nav__item">
-              <router-link to="/" class="nav__link">Home</router-link>
+              <router-link to="/home" class="nav__link">Home</router-link>
             </li>
             <li class="nav__item">
               <router-link to="/cart" class="nav__link">Cart</router-link>
