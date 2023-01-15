@@ -10,7 +10,25 @@
 import HeaderComponent from '@/components/HeaderComponent.vue'
 import HomeComponent from '@/components/HomeComponent.vue'
 import FooterComponent from '@/components/FooterComponent.vue'
+import cookies from "vue-cookies"
+import axios from "axios"
 export default {
+  mounted () {
+    axios
+        .request({
+          url: `http://127.0.0.1:5000/api/client-token`,
+          headers: {
+            token: `${cookies.get(`client_token`)}`,
+          },
+        })
+        .then((response) => {
+          response
+        })
+        .catch((error) => {
+          this.$router.push(`/`);
+          error;
+        });
+  },
   components: { HeaderComponent, HomeComponent, FooterComponent },
 }
 </script>
