@@ -7,15 +7,29 @@
 </template>
 
 <script>
-import HeaderComponent from '@/components/HeaderComponent.vue'
-import CartComponent from '@/components/CartComponent.vue'
-import FooterComponent from '@/components/FooterComponent.vue'
-
+import HeaderComponent from "@/components/HeaderComponent.vue";
+import CartComponent from "@/components/CartComponent.vue";
+import FooterComponent from "@/components/FooterComponent.vue";
+import cookies from "vue-cookies";
+import axios from "axios";
 
 export default {
-  components: { HeaderComponent, CartComponent, FooterComponent},
-
-}
+  mounted() {
+    axios
+      .request({
+        url: `http://127.0.0.1:5000/api/client-token`,
+        headers: {
+          token: `${cookies.get(`client_token`)}`,
+        },
+      })
+      .then((response) => {
+        response;
+      })
+      .catch((error) => {
+        this.$router.push(`/`);
+        error;
+      });
+  },
+  components: { HeaderComponent, CartComponent, FooterComponent },
+};
 </script>
-
-    
