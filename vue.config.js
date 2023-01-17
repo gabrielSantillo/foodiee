@@ -1,9 +1,7 @@
-const { defineConfig } = require('@vue/cli-service')
-module.exports = defineConfig({
-  transpileDependencies: [
-    'vuetify'
-  ],
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+
+module.exports = {
   configureWebpack: {
-    devtool: `source-map`,
-  },
-})
+    plugins: [new MiniCssExtractPlugin()],
+  }
+};
