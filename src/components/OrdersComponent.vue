@@ -61,7 +61,7 @@ export default {
   mounted() {
     axios
       .request({
-        url: `http://127.0.0.1:5000/api/client-order`,
+        url: `${process.env.VUE_APP_BASE_DOMAIN}/api/client-order`,
         headers: {
           token: `${cookies.get(`client_token`)}`,
         },

@@ -42,7 +42,7 @@ export default {
   mounted() {
     axios
       .request({
-        url: `http://127.0.0.1:5000/api/menu-item`,
+        url: `${process.env.VUE_APP_BASE_DOMAIN}/api/menu-item`,
         params: {
           restaurant_id: `${cookies.get(`restaurant_id`)}`,
         },
@@ -79,7 +79,7 @@ export default {
         axios
           .request({
             // Standard URL and params
-            url: `http://127.0.0.1:5000/api/menu-item-images`,
+            url: `${process.env.VUE_APP_BASE_DOMAIN}/api/menu-item-images`,
             params: {
               file_name: items[i]["file_name"],
             },

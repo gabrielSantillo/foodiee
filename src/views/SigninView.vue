@@ -167,7 +167,7 @@ export default {
       }
       axios
         .request({
-          url: `http://127.0.0.1:5000/api/client-login`,
+          url: `${process.env.VUE_APP_BASE_DOMAIN}/api/client-login`,
           method: `POST`,
           data: {
             email: this.sign_in_email,
@@ -205,7 +205,7 @@ export default {
       }
       axios
         .request({
-          url: `http://127.0.0.1:5000/api/client`,
+          url: `${process.env.VUE_APP_BASE_DOMAIN}/api/client`,
           method: `POST`,
           data: {
             email: this.sign_up_email,

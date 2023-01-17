@@ -38,7 +38,7 @@ export default {
   mounted() {
     axios
       .request({
-        url: `http://127.0.0.1:5000/api/all-restaurants`,
+        url: `${process.env.VUE_APP_BASE_DOMAIN}/api/all-restaurants`,
       })
       .then((response) => {
         this.restaurants = response["data"];
@@ -57,7 +57,7 @@ export default {
         axios
           .request({
             // Standard URL and params
-            url: `http://127.0.0.1:5000/api/restaurant-images`,
+            url: `${process.env.VUE_APP_BASE_DOMAIN}/api/restaurant-images`,
             params: {
               file_name: restaurants[i]['file_name'],
             },
