@@ -28,9 +28,10 @@ import cookies from "vue-cookies";
 import axios from "axios";
 export default {
   methods: {
+    // function that will make an axios request to confirm the order
     confirm_order() {
       let menu_items_id = [];
-      /* for loop that goes through to the foods and add the food id in the menu itens array */
+      // for loop that goes through to the items and add the item id in the menu itens list 
       for (let i = 0; i < this.items.length; i++) {
         menu_items_id.push(this.items[i][`menu_item_id`]);
       }
@@ -47,6 +48,7 @@ export default {
             restaurant_id: cookies.get(`restaurant_id`),
           },
         })
+        // in case off success set a cookie with the order id and push the user to the orders page
         .then((response) => {
           cookies.set(`order_id`, response[`data`][`order_id`]);
 
@@ -69,6 +71,7 @@ export default {
     };
   },
 
+  // on mounted get the items from the cart, get their prices and add all of them to get the total price of the order
   mounted() {
     let total_order = 0;
     this.items = cookies.get("cart");

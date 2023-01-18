@@ -7,8 +7,8 @@
                     <span class="footer__description">Application</span>
 
                     <div>
-                        <a href="https://github.com/gabrielSantillo" class="footer__social"><i class='bx bxl-github' ></i></a>
-                        <a href="https://www.linkedin.com/in/gabriel-santillo/" class="footer__social"><i class='bx bxl-linkedin' ></i></a>
+                        <a href="https://github.com/gabrielSantillo" target="_blank" class="footer__social"><i class='bx bxl-github' ></i></a>
+                        <a href="https://www.linkedin.com/in/gabriel-santillo/" target="_blank" class="footer__social"><i class='bx bxl-linkedin' ></i></a>
                         <a href="mailto:gasantillo7@gmail.com" class="footer__social"><i class='bx bx-envelope' ></i></a>
                     </div>
                 </div>

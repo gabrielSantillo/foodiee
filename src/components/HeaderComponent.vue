@@ -59,14 +59,6 @@ export default {
       }
     },
 
-    scrollTop() {
-      let scrollTop = this.$refs["header"];
-      if (this.scrollY >= 560) {
-        scrollTop.classList.add("scroll-top");
-      } else {
-        scrollTop.classList.add("scroll-top");
-      }
-    },
   },
 
   data() {
