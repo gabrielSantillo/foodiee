@@ -47,6 +47,7 @@ export default {
   },
 
   mounted() {
+    // axios request to get all menu items that belongs to the chosen restaurant
     axios
       .request({
         url: `${process.env.VUE_APP_BASE_DOMAIN}/api/menu-item`,
@@ -54,6 +55,7 @@ export default {
           restaurant_id: `${cookies.get(`restaurant_id`)}`,
         },
       })
+      // in case of success add the data to the items list call the function get_files to get all restaurants logos
       .then((response) => {
         this.items = response["data"];
         this.get_files(this.items);
@@ -64,21 +66,27 @@ export default {
   },
 
   methods: {
+    // function that will add an item to the cart
     add_item(item) {
+      // if the cart is empty push this item to the cart
       if (cookies.get(`cart`) === null) {
         this.cart.push(item);
-      } else {
+      } 
+      // if not, get all items in the cart, add all of them again to the list cart and add the new item 
+      else {
         let cart_array = cookies.get(`cart`);
         for (let i = 0; i < cart_array.length; i++) {
           this.cart.push(cart_array[i]);
         }
         this.cart.push(item);
       }
+      // set the cookie with the cart list
       cookies.set(`cart`, JSON.stringify(this.cart));
       this.message = "Item added to the cart.";
     },
-
+    // function that get all menu items images
     get_files(items) {
+      // looping trough the items list to make an axios request for each item
       for (let i = 0; i < items.length; i++) {
         axios
           .request({
@@ -87,7 +95,6 @@ export default {
             params: {
               file_name: items[i]["file_name"],
             },
-            // THIS MUST BE HERE EXACTLY THE SAME
             // This lets axios know to expect a blob (one way to represent a file)
             responseType: "blob",
           })
