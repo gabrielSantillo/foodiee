@@ -40,18 +40,19 @@ export default {
     };
   },
   mounted() {
+    // getting the users past orders
     this.past_orders = cookies.get("past_orders");
-    this.past_orders;
   },
 
   methods: {
+    // function that will place a new order based on some past order that the user wants
     make_order(order) {
       let menu_items_id = [];
-      /* for loop that goes through to the foods and add the food id in the menu itens array */
+      // for loop that goes through to the foods and add the food id in the menu itens list 
       for (let i = 0; i < order['menu_items'].length; i++) {
         menu_items_id.push(order['menu_items'][i]['menu_item_id']);
       }
-      /* axios request to the client-order API */
+      /* axios request to place a new order*/
       axios
         .request({
           url: `${process.env.VUE_APP_BASE_DOMAIN}/api/client-order`,
@@ -64,15 +65,15 @@ export default {
             restaurant_id: order['restaurant_id'],
           },
         })
+        // in case of success set a cookie with the order id and update the page
         .then((response) => {
-          /* set the cookie with the JSON value of the order id */
           cookies.set(`order_id`, response[`data`][`order_id`]);
 
           this.$forceUpdate()
         })
+        // in case of error show the user a message
         .catch((error) => {
           error;
-          /* on failure show a message */
           this.message = "Sorry, an error have occurred.";
           this.alert = true;
         });
