@@ -9,7 +9,7 @@
           <h3 class="cart__name">{{ item["name"] }}</h3>
           <span class="cart__price">${{ item["price"] }}</span>
           <i
-            @click="delete_item(item, $event)"
+            @click="delete_item(index, $event)"
             class="button cart__button bx bx-trash"
           ></i>
         </div>
@@ -17,32 +17,22 @@
     </section>
 
     <confirm-order-component></confirm-order-component>
-
   </div>
 </template>
 
 <script>
 import cookies from "vue-cookies";
-import ConfirmOrderComponent from './ConfirmOrderComponent.vue';
+import ConfirmOrderComponent from "./ConfirmOrderComponent.vue";
 export default {
   components: { ConfirmOrderComponent },
   methods: {
-    delete_item(food) {
-      /* setting the variable with the cookie value of cart */
-      let cart = cookies.get(`cart`);
-      /* for loop that will go through the cart */
-      for (let i = 0; i < cart.length; i++) {
-        /* checking if the the food id is equal to the cart id */
-        if (food[`id`] === cart[i][`id`]) {
-          /* if yes, splice this item */
-          cart.splice(i, 1);
-          /* set the cookie again */
-          cookies.set(`cart`, JSON.stringify(cart));
-          /* setting the variable with the cart value */
-          this.items = cart;
-          return;
-        }
+    delete_item(index) {
+      this.items.splice(index, 1);
+      cookies.set(`cart`, JSON.stringify(this.items));
+      if (this.items.length === 0) {
+        cookies.remove(`cart`);
       }
+      this.$router.go()
     },
   },
   mounted() {
@@ -106,6 +96,4 @@ export default {
   cursor: pointer;
   background-color: #e53935;
 }
-
-
 </style>
