@@ -36,10 +36,12 @@ import cookies from "vue-cookies"
 
 export default {
   mounted() {
+    // axios request that get all restaurants in the database
     axios
       .request({
         url: `${process.env.VUE_APP_BASE_DOMAIN}/api/all-restaurants`,
       })
+      // in case of success add all data into the restaurants list and call the function get_files to get all restaurants logos
       .then((response) => {
         this.restaurants = response["data"];
         this.get_files(this.restaurants)
@@ -52,7 +54,9 @@ export default {
   },
 
   methods: {
+    // function that get all restaurants logos
     get_files(restaurants) {
+      // looping trough the restaurants list to make an axios request for each restaurant
         for (let i = 0; i < restaurants.length; i++) {
         axios
           .request({
@@ -61,7 +65,6 @@ export default {
             params: {
               file_name: restaurants[i]['file_name'],
             },
-            // THIS MUST BE HERE EXACTLY THE SAME
             // This lets axios know to expect a blob (one way to represent a file)
             responseType: "blob",
           })
@@ -69,7 +72,7 @@ export default {
             // Cool built in function that allows us to take file data and create a URL for it
             // This is so we can use it for things like image src and such
             let src = URL.createObjectURL(response["data"]);
-            /* adding this paths since they strings to the images_src array to then, loop through this array and print the images onto the page */
+            /* adding this paths since they strings to the images_src list to then, loop through this list and print the images onto the page */
             this.restaurants[i]['file_name'] = src
           })
           .catch((error) => {
@@ -80,6 +83,7 @@ export default {
       }
     },
 
+    // function that set the restaurant clicked as a cookie so on the menu page I will be able to get this cookie and print all restaurant menu items onto the page
     menu_page(restaurant) {
       /* stringfy the restaurant object */
       let restaurant_object_json = JSON.stringify(restaurant);
@@ -87,7 +91,7 @@ export default {
       cookies.set(`restaurant_object`, restaurant_object_json);
       /* set a cookie with the restaurant_id value */
       cookies.set(`restaurant_id`, `${restaurant[`id`]}`);
-      /* leave the user to restaraunt menu options */
+      /* push the user to restaraunt menu options */
       this.$router.push(`menu`);
     }
   },
