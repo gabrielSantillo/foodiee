@@ -14,6 +14,7 @@ import cookies from "vue-cookies";
 import axios from "axios";
 
 export default {
+  // axios request to check if the user token is valid 
   mounted() {
     axios
       .request({

@@ -7,9 +7,9 @@
                     <span class="footer__description">Application</span>
 
                     <div>
-                        <a href="" class="footer__social"><i class='bx bxl-github' ></i></a>
-                        <a href="" class="footer__social"><i class='bx bxl-linkedin' ></i></a>
-                        <a href="" class="footer__social"><i class='bx bx-envelope' ></i></a>
+                        <a href="https://github.com/gabrielSantillo" class="footer__social"><i class='bx bxl-github' ></i></a>
+                        <a href="https://www.linkedin.com/in/gabriel-santillo/" class="footer__social"><i class='bx bxl-linkedin' ></i></a>
+                        <a href="mailto:gasantillo7@gmail.com" class="footer__social"><i class='bx bx-envelope' ></i></a>
                     </div>
                 </div>
 
@@ -37,9 +37,9 @@
                     <h3 class="footer__title">Adress</h3>
                     <ul>
                         <li>Calgary - Canada</li>
-                        <li>Jr Union #999</li>
-                        <li>999 - 888 - 777</li>
-                        <li>foodiee@gmail.com</li>
+                        <li>620 10th Avenue</li>
+                        <li>587 888-0975</li>
+                        <li>gasantillo7@gmail.com</li>
                     </ul>
                 </div>
             </div>

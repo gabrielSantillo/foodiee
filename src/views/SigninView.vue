@@ -11,7 +11,7 @@
           dismissible
           transition="fade-transition"
         >
-          {{message}}
+          {{ message }}
         </v-alert>
       </div>
 
@@ -37,7 +37,7 @@
 
                           <v-text-field
                             v-model="sign_in_password"
-                            :rules= "passwordRules"
+                            :rules="passwordRules"
                             label="Password"
                             name="password"
                             type="password"
@@ -109,7 +109,7 @@
 
                           <v-text-field
                             v-model="sign_up_password"
-                            :rules= "passwordRules"
+                            :rules="passwordRules"
                             label="Password"
                             type="password"
                             color="green darken-3"
@@ -160,11 +160,14 @@ export default {
   }),
 
   methods: {
+    // function to sign in an user that already exists in the database
     sign_in() {
+      // if statement that checks if all inputas were filled in
       if (this.sign_in_email === "" || this.sign_in_password === "") {
-        this.message = "All inputs must be filled in."
-        return this.alert = true;
+        this.message = "All inputs must be filled in.";
+        return (this.alert = true);
       }
+      // axios request that send a POST request with the email and password sent by the user
       axios
         .request({
           url: `${process.env.VUE_APP_BASE_DOMAIN}/api/client-login`,
@@ -174,35 +177,38 @@ export default {
             password: this.sign_in_password,
           },
         })
+        // in case of success set the user id and token as cookies and push them to the home page
         .then((response) => {
-          /* on success set the cookie value to the token received from the API */
           cookies.set(`client_id`, response[`data`][`client_id`]);
           cookies.set(`client_token`, response[`data`][`token`]);
 
-          this.$router.push("/home")
+          this.$router.push("/home");
         })
+        // in case of error, check to see what kind error was and show a message to the user
         .catch((error) => {
           if (error["message"] === "Request failed with status code 400") {
             this.message = "Wrong email and/or password.";
             this.alert = true;
           } else {
-            this.message = "Sorry, an error has occurred. Please, try again."
+            this.message = "Sorry, an error has occurred. Please, try again.";
             this.alert = true;
           }
         });
     },
-
+    // function to sign up an user that doesn't exists in the database
     sign_up() {
+      // if statement that checks if all inputas were filled in
       if (
         this.sign_up_email === "" ||
         this.sign_up_password === "" ||
         this.first_name === "" ||
         this.last_name === ""
       ) {
-        this.message = "All inputs must be filled in."
-        this.alert = true
+        this.message = "All inputs must be filled in.";
+        this.alert = true;
         return;
       }
+      // axios request to post the user data
       axios
         .request({
           url: `${process.env.VUE_APP_BASE_DOMAIN}/api/client`,
@@ -214,13 +220,14 @@ export default {
             password: this.sign_up_password,
           },
         })
+        // in case of success set the user id and token as cookies and push them to the home page
         .then((response) => {
-          /* on success set the cookie value to the token received from the API */
           cookies.set(`client_id`, response[`data`][`client_id`]);
           cookies.set(`client_token`, response[`data`][`token`]);
 
-          this.$router.push("/home")
+          this.$router.push("/home");
         })
+        // in case of error, check to see what kind error was and show a message to the user
         .catch((error) => {
           if (error["message"] === "Network Error") {
             this.message = "Sorry, an error has occurred. Please, try again.";
