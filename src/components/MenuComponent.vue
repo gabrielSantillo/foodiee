@@ -1,8 +1,14 @@
 <template>
   <div>
     <div class="alert">
-      <v-alert type="success" :value="alert" border="left" dismissible transition="fade-transition">
-        {{message}}
+      <v-alert
+        type="success"
+        :value="alert"
+        border="left"
+        dismissible
+        transition="fade-transition"
+      >
+        {{ message }}
       </v-alert>
     </div>
 
@@ -36,9 +42,10 @@ export default {
       images_src: [],
       message: "",
       alert: false,
-      cart: []
+      cart: [],
     };
   },
+
   mounted() {
     axios
       .request({
@@ -67,11 +74,8 @@ export default {
         }
         this.cart.push(item);
       }
-
-      let cart_json = JSON.stringify(this.cart);
-      cookies.set(`cart`, cart_json);
-      this.alert = true,
-      this.message = "Item added to the cart."
+      cookies.set(`cart`, JSON.stringify(this.cart));
+      this.message = "Item added to the cart.";
     },
 
     get_files(items) {

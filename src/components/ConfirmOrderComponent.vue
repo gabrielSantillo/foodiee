@@ -55,8 +55,8 @@ export default {
         .catch((error) => {
           error;
           /* on failure show a message */
-          this.message = "Sorry, an error have occurred."
-          this.alert = true
+          this.message = "Sorry, an error have occurred.";
+          this.alert = true;
         });
     },
   },
@@ -65,15 +65,17 @@ export default {
       total_order: 0,
       items: undefined,
       message: "Sorry, an error have occurred.",
-      alert: false
+      alert: false,
     };
   },
 
   mounted() {
+    let total_order = 0;
     this.items = cookies.get("cart");
     for (let i = 0; i <= this.items.length; i++) {
-      this.total_order += parseFloat(this.items[i]["price"]);
-      cookies.set('total_order', this.total_order)
+      total_order += parseFloat(this.items[i]["price"]);
+      this.total_order = total_order.toFixed(2);
+      cookies.set("total_order", this.total_order);
     }
   },
 };
