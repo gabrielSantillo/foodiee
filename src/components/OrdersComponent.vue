@@ -59,6 +59,7 @@ export default {
     };
   },
   mounted() {
+    // axios request to get all user orders
     axios
       .request({
         url: `${process.env.VUE_APP_BASE_DOMAIN}/api/client-order`,
@@ -66,6 +67,7 @@ export default {
           token: `${cookies.get(`client_token`)}`,
         },
       })
+      // in case of success check to see if the order sent is equal to the order id in the cookie, if yes add this order to the last_order variable, if not, add to the past_orders variable.
       .then((response) => {
         let id = cookies.get(`order_id`);
         for (let i = 0; i <= response["data"].length; i++) {
@@ -84,7 +86,7 @@ export default {
           } else {
             this.past_orders.push(response["data"][i]);
           }
-
+          // set as cookie all past orders 
           cookies.set("past_orders", JSON.stringify(this.past_orders));
         }
       })
