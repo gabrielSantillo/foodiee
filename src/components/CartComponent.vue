@@ -26,15 +26,19 @@ import ConfirmOrderComponent from "./ConfirmOrderComponent.vue";
 export default {
   components: { ConfirmOrderComponent },
   methods: {
+    // function that will delete an item from the cart
     delete_item(index) {
       this.items.splice(index, 1);
+      // setting a cookie with the new cart
       cookies.set(`cart`, JSON.stringify(this.items));
+      // if items length is equal to zero remove the cart cookie
       if (this.items.length === 0) {
         cookies.remove(`cart`);
       }
       this.$router.go()
     },
   },
+  // get the cart cookie and add to the items variable
   mounted() {
     this.items = cookies.get("cart");
   },
