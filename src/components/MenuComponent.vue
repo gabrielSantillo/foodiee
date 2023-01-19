@@ -1,17 +1,5 @@
 <template>
   <div>
-    <div class="alert" v-if="message">
-      <v-alert
-        type="success"
-        :value="alert"
-        border="left"
-        dismissible
-        transition="fade-transition"
-      >
-        {{ message }}
-      </v-alert>
-    </div>
-
     <section class="menu section bd-container" ref="menu" v-scroll-reveal>
       <span class="section-subtitle">Special</span>
       <h2 class="section-title">Menu of the week</h2>
@@ -42,16 +30,16 @@ export default {
       images_src: [],
       message: "",
       cart: [],
-      chosen_restaurant: []
+      chosen_restaurant: [],
     };
   },
 
   mounted() {
-    if(cookies.get('cart')) {
-      this.cart = cookies.get('cart')
+    if (cookies.get("cart")) {
+      this.cart = cookies.get("cart");
     }
 
-  this.chosen_restaurant = cookies.get('restaurant_id')
+    this.chosen_restaurant = cookies.get("restaurant_id");
 
     // axios request to get all menu items that belongs to the chosen restaurant
     axios
@@ -76,29 +64,29 @@ export default {
     add_item(item) {
       // if the cart is empty push this item to the cart
       if (this.cart.length === 0) {
-        this.cart.push(item)
+        this.cart.push(item);
 
-        cookies.set('chosen_restaurant', this.chosen_restaurant)
+        cookies.set("chosen_restaurant", this.chosen_restaurant);
 
-        cookies.set('cart', JSON.stringify(this.cart))
+        cookies.set("cart", JSON.stringify(this.cart));
 
-        this.message = "Item added to the cart."
-      } 
-      // if not, get all items in the cart, add all of them again to the list cart and add the new item 
-      else if(Number(cookies.get('chosen_restaurant')) === Number(cookies.get('restaurant_id'))) {
-        // let cart_array = cookies.get(`cart`);
-        // for (let i = 0; i < cart_array.length; i++) {
-        //   this.cart.push(cart_array[i]);
-        // }
+        this.message = "Item added to the cart.";
+        alert(this.message);
+      }
+      // if not, get all items in the cart, add all of them again to the list cart and add the new item
+      else if (
+        Number(cookies.get("chosen_restaurant")) ===
+        Number(cookies.get("restaurant_id"))
+      ) {
         this.cart.push(item);
         cookies.set(`cart`, JSON.stringify(this.cart));
-        this.message = "Item added to the cart."
+        this.message = "Item added to the cart.";
+        alert(this.message);
       } else {
-        this.message = "Cart already contains items from another restaurant. Please place or remove that order in order to place a new order from another restaurant."
+        this.message =
+          "Cart already contains items from another restaurant. Please place or remove that order if you want to add to the cart new items.";
+        alert(this.message);
       }
-      // // set the cookie with the cart list
-      // cookies.set(`cart`, JSON.stringify(this.cart));
-      // this.message = "Item added to the cart.";
     },
     // function that get all menu items images
     get_files(items) {
