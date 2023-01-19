@@ -34,6 +34,7 @@ export default {
       // if items length is equal to zero remove the cart cookie
       if (this.items.length === 0) {
         cookies.remove(`cart`);
+        cookies.remove('total_order')
       }
       this.$router.go()
     },

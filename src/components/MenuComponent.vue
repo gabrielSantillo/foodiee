@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="alert">
+    <div class="alert" v-if="message">
       <v-alert
         type="success"
         :value="alert"
@@ -41,12 +41,18 @@ export default {
       items: [],
       images_src: [],
       message: "",
-      alert: false,
       cart: [],
+      chosen_restaurant: []
     };
   },
 
   mounted() {
+    if(cookies.get('cart')) {
+      this.cart = cookies.get('cart')
+    }
+
+  this.chosen_restaurant = cookies.get('restaurant_id')
+
     // axios request to get all menu items that belongs to the chosen restaurant
     axios
       .request({
@@ -69,20 +75,30 @@ export default {
     // function that will add an item to the cart
     add_item(item) {
       // if the cart is empty push this item to the cart
-      if (cookies.get(`cart`) === null) {
-        this.cart.push(item);
+      if (this.cart.length === 0) {
+        this.cart.push(item)
+
+        cookies.set('chosen_restaurant', this.chosen_restaurant)
+
+        cookies.set('cart', JSON.stringify(this.cart))
+
+        this.message = "Item added to the cart."
       } 
       // if not, get all items in the cart, add all of them again to the list cart and add the new item 
-      else {
-        let cart_array = cookies.get(`cart`);
-        for (let i = 0; i < cart_array.length; i++) {
-          this.cart.push(cart_array[i]);
-        }
+      else if(Number(cookies.get('chosen_restaurant')) === Number(cookies.get('restaurant_id'))) {
+        // let cart_array = cookies.get(`cart`);
+        // for (let i = 0; i < cart_array.length; i++) {
+        //   this.cart.push(cart_array[i]);
+        // }
         this.cart.push(item);
+        cookies.set(`cart`, JSON.stringify(this.cart));
+        this.message = "Item added to the cart."
+      } else {
+        this.message = "Cart already contains items from another restaurant. Please place or remove that order in order to place a new order from another restaurant."
       }
-      // set the cookie with the cart list
-      cookies.set(`cart`, JSON.stringify(this.cart));
-      this.message = "Item added to the cart.";
+      // // set the cookie with the cart list
+      // cookies.set(`cart`, JSON.stringify(this.cart));
+      // this.message = "Item added to the cart.";
     },
     // function that get all menu items images
     get_files(items) {
