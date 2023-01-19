@@ -84,7 +84,7 @@ export default {
         alert(this.message);
       } else {
         this.message =
-          "Cart already contains items from another restaurant. Please place or remove that order if you want to add to the cart new items.";
+          "The cart already contains items from another restaurant. Place or remove this order if you want to add new items to your cart.";
         alert(this.message);
       }
     },
